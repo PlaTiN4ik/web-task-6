@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Задание №6 — Калькулятор стоимости услуги</title>
+
+    <!-- Bootstrap 4.3.1 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Собственные стили -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Подключение скрипта калькулятора с атрибутом defer -->
+    <script src="calculator.js" defer></script>
+</head>
+<body class="bg-light text-dark">
+
+    <!-- Шапка -->
+    <header class="custom-header py-3">
+        <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+            <div class="d-flex align-items-center mb-3 mb-md-0">
+                <img src="Logotip.jpg" alt="Логотип КубГУ" class="logo-img mr-3">
+                <h1 class="h4 m-0 text-white font-weight-bold">Кубанский Гос. Университет</h1>
+            </div>
+            <nav>
+                <ul class="nav flex-column flex-md-row text-center">
+                    <li class="nav-item mb-2 mb-md-0 mr-md-2">
+                        <a class="nav-link custom-nav-link text-white font-weight-bold rounded px-3 py-2" href="#links-section">Ссылки</a>
+                    </li>
+                    <li class="nav-item mb-2 mb-md-0 mr-md-2">
+                        <a class="nav-link custom-nav-link text-white font-weight-bold rounded px-3 py-2" href="#table-section">Таблица</a>
+                    </li>
+                    <li class="nav-item mb-2 mb-md-0 mr-md-2">
+                        <a class="nav-link custom-nav-link text-white font-weight-bold rounded px-3 py-2" href="#calc-section">Калькулятор</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-nav-link text-white font-weight-bold rounded px-3 py-2" href="#form-section">Форма</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основной контент: Сетка Bootstrap с Mobile First сортировкой -->
+    <main class="container my-4 my-md-5">
+        <div class="row">
+
+            <!-- Левая колонка (на десктопе): Калькулятор, Таблица и Форма -->
+            <div class="col-12 col-md-7 col-lg-8 order-2 order-md-1">
+
+                <!-- Калькулятор стоимости услуги (Задание №6) -->
+                <section id="calc-section" class="content-card p-3 p-md-4 mb-4 bg-white rounded shadow-sm">
+                    <h2 class="h5 pb-2 mb-3 border-bottom border-primary text-primary font-weight-bold">Калькулятор стоимости услуги</h2>
+                    <form id="calc-form" action="#" method="get" novalidate>
+                        <div class="form-group mb-3">
+                            <label for="calc-quantity" class="font-weight-bold">Количество:</label>
+                            <input
+                                type="number"
+                                min="1"
+                                step="1"
+                                value="1"
+                                class="form-control"
+                                id="calc-quantity"
+                                name="quantity"
+                                placeholder="Введите количество (целое положительное число)"
+                            >
+                        </div>
+
+                        <fieldset class="form-group mb-3">
+                            <legend class="col-form-label pt-0 font-weight-bold">Выберите тип услуги (товара):</legend>
+                            <div class="form-check mb-1">
+                                <input class="form-check-input" type="radio" name="serviceType" id="type1" value="1" checked>
+                                <label class="form-check-label" for="type1">
+                                    1. Базовая консультация по веб-разработке — 450 руб. (без доп. опций и свойств)
+                                </label>
+                            </div>
+                            <div class="form-check mb-1">
+                                <input class="form-check-input" type="radio" name="serviceType" id="type2" value="2">
+                                <label class="form-check-label" for="type2">
+                                    2. Учебный комплект «Веб-разработка и веб-сервисы» — 900 руб. (выбор опции)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="serviceType" id="type3" value="3">
+                                <label class="form-check-label" for="type3">
+                                    3. Практический интенсив по JavaScript — 2500 руб. (выбор свойств)
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <div id="options-wrapper" class="form-group mb-3 d-none">
+                            <label for="calc-option" class="font-weight-bold">Выберите опцию комплекта:</label>
+                            <select class="form-control" id="calc-option" name="prodOption">
+                                <option value="optPaper">Стандартное печатное издание (+0 руб.)</option>
+                                <option value="optHardcover">Твердый переплет + исходники на флешке (+250 руб.)</option>
+                                <option value="optElectronic">Электронная PDF-версия (−100 руб.)</option>
+                            </select>
+                        </div>
+
+                        <div id="property-wrapper" class="form-group mb-3 d-none">
+                            <span class="d-block font-weight-bold mb-2">Дополнительные свойства услуги:</span>
+                            <div class="form-check mb-1">
+                                <input class="form-check-input" type="checkbox" id="propCertificate" name="propCertificate" value="1">
+                                <label class="form-check-label" for="propCertificate">
+                                    Именной сертификат об окончании (+500 руб. за ед.)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="propPractice" name="propPractice" value="1">
+                                <label class="form-check-label" for="propPractice">
+                                    Индивидуальный код-ревью с преподавателем (+700 руб. за ед.)
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="calc-result" class="mt-3" aria-live="polite"></div>
+                </section>
+
+                <!-- Таблица данных -->
+                <section id="table-section" class="content-card p-3 p-md-4 mb-4 bg-white rounded shadow-sm">
+                    <h2 class="h5 pb-2 mb-3 border-bottom border-primary text-primary font-weight-bold">Таблица данных</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped mb-0">
+                            <thead class="custom-thead text-white">
+                                <tr>
+                                    <th scope="col">№</th>
+                                    <th scope="col">ФИО студента</th>
+                                    <th scope="col">Группа</th>
+                                    <th scope="col">Оценка</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2" class="align-middle text-center font-weight-bold">1</td>
+                                    <td>Иванов Иван Иванович</td>
+                                    <td>ПИ-201</td>
+                                    <td>Отлично</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-muted font-italic">Примечание: Староста группы</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-weight-bold">2</td>
+                                    <td>Петров Петр Петрович</td>
+                                    <td>ПИ-201</td>
+                                    <td>Хорошо</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-weight-bold">3</td>
+                                    <td>Сидоров Сидор Сидорович</td>
+                                    <td>ПИ-201</td>
+                                    <td>Отлично</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-weight-bold">4</td>
+                                    <td>Алексеев Алексей Алексеевич</td>
+                                    <td>ПИ-202</td>
+                                    <td>Зачет</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-weight-bold">5</td>
+                                    <td>Васильев Василий Васильевич</td>
+                                    <td>ПИ-202</td>
+                                    <td>Хорошо</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Форма обратной связи -->
+                <section id="form-section" class="content-card p-3 p-md-4 mb-4 bg-white rounded shadow-sm">
+                    <h2 class="h5 pb-2 mb-3 border-bottom border-primary text-primary font-weight-bold">Форма обратной связи</h2>
+                    <form id="feedback-form" action="#" method="post">
+                        <div class="form-group mb-3">
+                            <label for="fullname" class="font-weight-bold">ФИО:</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="fullname"
+                                name="fullname"
+                                placeholder="Иванов Иван Иванович"
+                                pattern="[A-Za-zА-Яа-яЁё\s\-]+"
+                                title="Разрешены только буквы"
+                                inputmode="text"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="phone" class="font-weight-bold">Телефон:</label>
+                            <input
+                                type="tel"
+                                class="form-control"
+                                id="phone"
+                                name="phone"
+                                placeholder="+7 (999) 000-00-00"
+                                pattern="[+0-9\s\-\(\)]+"
+                                title="Разрешены только цифры и знаки +, -, скобки"
+                                inputmode="tel"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="email" class="font-weight-bold">E-mail:</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="example@mail.ru" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="dob" class="font-weight-bold">Дата рождения:</label>
+                            <input type="date" class="form-control" id="dob" name="dob" value="2005-01-01" required>
+                        </div>
+
+                        <fieldset class="form-group mb-3">
+                            <legend class="col-form-label pt-0 font-weight-bold">Пол:</legend>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" checked>
+                                <label class="form-check-label" for="genderMale">Мужской</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female">
+                                <label class="form-check-label" for="genderFemale">Женский</label>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-group mb-3">
+                            <label for="languages" class="font-weight-bold">
+                                Любимый язык программирования:<br>
+                                <small class="text-muted font-weight-normal">(для выбора нескольких зажмите Ctrl)</small>
+                            </label>
+                            <select class="form-control" id="languages" name="languages[]" multiple size="6" required>
+                                <option value="pascal">Pascal</option>
+                                <option value="c">C</option>
+                                <option value="cpp">C++</option>
+                                <option value="js">JavaScript</option>
+                                <option value="php">PHP</option>
+                                <option value="python">Python</option>
+                                <option value="java">Java</option>
+                                <option value="haskel">Haskel</option>
+                                <option value="clojure">Clojure</option>
+                                <option value="prolog">Prolog</option>
+                                <option value="scala">Scala</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="bio" class="font-weight-bold">Биография:</label>
+                            <textarea class="form-control" id="bio" name="bio" rows="4" placeholder="Расскажите о себе..."></textarea>
+                        </div>
+
+                        <div class="form-group form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="contract" name="contract" required>
+                            <label class="form-check-label" for="contract">С контрактом ознакомлен(а)</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary px-4 py-2">Сохранить</button>
+                    </form>
+                </section>
+            </div>
+
+            <!-- Правая колонка (на десктопе): Список ссылок -->
+            <div class="col-12 col-md-5 col-lg-4 order-1 order-md-2">
+                <section id="links-section" class="content-card p-3 p-md-4 mb-4 bg-white rounded shadow-sm">
+                    <h2 class="h5 pb-2 mb-3 border-bottom border-primary text-primary font-weight-bold">Список гиперссылок</h2>
+                    <ul class="pl-3 links-list">
+                        <li><a href="http://kubsu.ru/">1. Абсолютная ссылка на главную страницу kubsu.ru (http)</a></li>
+                        <li><a href="https://kubsu.ru/">2. Абсолютная ссылка на главную страницу kubsu.ru (https)</a></li>
+                        <li class="my-2">
+                            <a href="https://kubsu.ru/">
+                                <img src="Logotip.jpg" alt="Логотип КубГУ" width="120" height="120" class="img-fluid rounded border">
+                            </a>
+                        </li>
+                        <li><a href="/about.html">4. Сокращенная ссылка на внутреннюю страницу</a></li>
+                        <li><a href="/">5. Сокращенная ссылка на главную страницу</a></li>
+                        <li><a href="#anchor-section">6. Ссылка на фрагмент текущей страницы</a></li>
+                        <li><a href="https://example.com/page?param1=val1&amp;param2=val2&amp;param3=val3">7. Ссылка с 3 параметрами в URL</a></li>
+                        <li><a href="https://example.com/page?id=123">8. Ссылка с параметром id в URL</a></li>
+                        <li><a href="in_that_katalog.html">9. Относительная на страницу в текущем каталоге</a></li>
+                        <li><a href="about/about.html">10. Относительная на страницу в каталоге about</a></li>
+                        <li><a href="../page.html">11. Относительная на страницу уровнем выше</a></li>
+                        <li><a href="../../page.html">12. Относительная на страницу двумя уровнями выше</a></li>
+                        <li>13. Это абзац текста, в котором есть <a href="https://kubsu.ru/">контекстная ссылка</a> на сайт КубГУ.</li>
+                        <li><a href="https://ru.wikipedia.org/wiki/HTML#История">14. Ссылка на фрагмент страницы стороннего сайта</a></li>
+                        <li class="my-2">
+                            15. Ссылка на фрагмент изображения:
+                            <div class="map-wrapper mt-2">
+                                <img src="map.png" alt="Интерактивная карта" usemap="#myMap" id="map-image" class="img-fluid">
+                            </div>
+                            <map name="myMap">
+                                <area shape="rect" coords="12,81,372,261" href="https://kubsu.ru/" alt="Прямоугольник" title="Переход на КубГУ">
+                                <area shape="circle" coords="703,170,90" href="https://example.com/" alt="Круг" title="Переход на Example">
+                            </map>
+                        </li>
+                        <li><a href="">16. Ссылка с пустым href</a></li>
+                        <li><a>17. Ссылка без href</a></li>
+                        <li><a href="https://example.com" rel="nofollow">18. Ссылка, по которой запрещен переход поисковикам (nofollow)</a></li>
+                        <li><!--noindex--><a href="https://example.com/">19. Ссылка, запрещенная для индексации (noindex)</a><!--/noindex--></li>
+                        <li class="my-2">
+                            20. Нумерованный список ссылок с атрибутом title:
+                            <ol class="my-1 pl-3">
+                                <li><a href="https://kubsu.ru/" title="Официальный сайт КубГУ">КубГУ</a></li>
+                                <li><a href="https://example.com/" title="Демонстрационный сайт Example">Example</a></li>
+                            </ol>
+                        </li>
+                        <li><a href="ftp://host/file.txt">21. Ссылка на файл на FTP-сервере с авторизацией</a></li>
+                    </ul>
+                </section>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer id="anchor-section" class="custom-footer py-3 text-white text-center">
+        <div class="container">
+            <p class="m-0">(c) Сергей Синица 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>
