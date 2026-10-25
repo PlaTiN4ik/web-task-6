@@ -4,9 +4,9 @@ function getPrices() {
     "use strict";
     return {
         prodOptions: {
-            optPaper: 0,
+            optElectronic: -100,
             optHardcover: 250,
-            optElectronic: -100
+            optPaper: 0
         },
         prodProperties: {
             propCertificate: 500,
@@ -16,21 +16,58 @@ function getPrices() {
     };
 }
 
+function initFormValidation() {
+    "use strict";
+    let dobInput = document.getElementById("dob");
+    let fullnameInput = document.getElementById("fullname");
+    let phoneInput = document.getElementById("phone");
+    let today = new Date().toISOString().split("T")[0];
+
+    if (dobInput) {
+        dobInput.setAttribute("max", today);
+        dobInput.addEventListener("change", function () {
+            if (dobInput.value > today) {
+                dobInput.value = today;
+            }
+        });
+    }
+
+    if (fullnameInput) {
+        fullnameInput.addEventListener("input", function () {
+            fullnameInput.value = fullnameInput.value.replace(
+                /[^A-Za-zА-Яа-яЁё\s\-]/g,
+                ""
+            );
+        });
+    }
+
+    if (phoneInput) {
+        phoneInput.addEventListener("input", function () {
+            phoneInput.value = phoneInput.value.replace(
+                /[^0-9+\s\-()]/g,
+                ""
+            );
+        });
+    }
+}
+
 function updatePrice() {
     "use strict";
-    let prices = getPrices();
-    let radios = document.getElementsByName("serviceType");
-    let selectedType = "1";
-    let optionsWrapper = document.getElementById("options-wrapper");
-    let propertyWrapper = document.getElementById("property-wrapper");
+    let checkboxes = document.querySelectorAll(
+        "#property-wrapper input[type=checkbox]"
+    );
     let optionSelect = document.getElementById("calc-option");
-    let checkboxes = document.querySelectorAll("#property-wrapper input[type=checkbox]");
+    let optionsWrapper = document.getElementById("options-wrapper");
+    let prices = getPrices();
+    let propertyWrapper = document.getElementById("property-wrapper");
     let quantityInput = document.getElementById("calc-quantity");
-    let resultBox = document.getElementById("calc-result");
+    let radios = document.getElementsByName("serviceType");
     let rawQuantity = quantityInput.value.trim();
-    let validPattern = /^[1-9]\d*$/;
-    let unitPrice = 0;
+    let resultBox = document.getElementById("calc-result");
+    let selectedType = "1";
     let total = 0;
+    let unitPrice = 0;
+    let validPattern = /^[1-9]\d*$/;
 
     radios.forEach(function (radio) {
         if (radio.checked) {
@@ -68,7 +105,10 @@ function updatePrice() {
 
     if (selectedType === "3") {
         checkboxes.forEach(function (checkbox) {
-            if (checkbox.checked && prices.prodProperties[checkbox.name] !== undefined) {
+            if (
+                checkbox.checked
+                && prices.prodProperties[checkbox.name] !== undefined
+            ) {
                 unitPrice += prices.prodProperties[checkbox.name];
             }
         });
@@ -86,11 +126,13 @@ function updatePrice() {
 
 window.addEventListener("DOMContentLoaded", function () {
     "use strict";
+    let calcForm = document.getElementById("calc-form");
+    let checkboxes = document.querySelectorAll(
+        "#property-wrapper input[type=checkbox]"
+    );
+    let optionSelect = document.getElementById("calc-option");
     let quantityInput = document.getElementById("calc-quantity");
     let radios = document.getElementsByName("serviceType");
-    let optionSelect = document.getElementById("calc-option");
-    let checkboxes = document.querySelectorAll("#property-wrapper input[type=checkbox]");
-    let calcForm = document.getElementById("calc-form");
 
     if (calcForm) {
         calcForm.addEventListener("submit", function (event) {
@@ -125,5 +167,6 @@ window.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    initFormValidation();
     updatePrice();
 });
